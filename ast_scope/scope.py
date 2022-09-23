@@ -30,7 +30,6 @@ class Variables:
         Import_Dict = dict(zip(Imports,import_Names)) 
         
         AllDict= {}
-        ListNames = set(Var_names.extend(Funcs_Names).extend(Classes_Names).extend(import_Names))
         Dicts = [Var_dict,Funcs_dict,Classes_dict, Import_Dict]
         for d in Dicts:
             for k,v in d.items():
@@ -38,7 +37,7 @@ class Variables:
         if returnDict: 
             Result = AllDict
         else: 
-            Result = ListNames
+            Result = set(AllDict.values())
         return Result
 
 class Scope(abc.ABC):
