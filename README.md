@@ -2,6 +2,7 @@ This repoistory is a fork of Kavigupta/ast_scope, the following changese were ma
 1- Adding ast of the node in the graph (modifying methods the class DiGraph in graph.py)
 2- Modifying the all_symbols method of Variable class in scope.py to capture the ast of registered paramters
 3- Modifying the static_dependency_graph method of annotation.py to include ast object in the nodes of the graph
+To apply the example: global_variables = sorted(scope_info.global_scope.symbols_in_frame.values())
 
 
 # ast_scope
