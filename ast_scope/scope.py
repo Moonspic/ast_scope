@@ -2,7 +2,7 @@ import attr
 import abc
 
 from .annotator import name_of_alias
-
+#
 @attr.s
 class Variables:
     variables = attr.ib(attr.Factory(set))
@@ -10,11 +10,36 @@ class Variables:
     classes = attr.ib(attr.Factory(set))
     import_statements = attr.ib(attr.Factory(set))
     @property
-    def all_symbols(self):
-        var_names = {var.id for var in self.variables}
-        block_definitions = {var.name for var in self.functions | self.classes}
-        import_statements = {name_of_alias(var) for var in self.import_statements}
-        return var_names | block_definitions | import_statements
+    def all_symbols(self, returnDict = False):
+        Result = []
+        Vars = list(self.variables)
+        Var_names = [var.id for var in Vars]
+        Var_dict= dict(zip(Vars,Var_names))
+        #var_names = {var.id for var in self.variables}
+        
+        Funcs = list(self.functions)
+        Funcs_Names = [var.name for var in self.functions]
+        Funcs_dict= dict(zip(Funcs,Funcs_Names))
+        
+        Classes = list(self.classes)
+        Classes_Names = [var.name for var in self.classes]
+        Classes_dict= dict(zip(Classes,Classes_Names))
+        
+        Imports =list(self.import_statements)
+        import_Names = [name_of_alias(var) for var in self.import_statements]
+        Import_Dict = dict(zip(Imports,import_Names)) 
+        
+        AllDict= {}
+        ListNames = set(Var_names.extend(Funcs_Names).extend(Classes_Names).extend(import_Names))
+        Dicts = [Var_dict,Funcs_dict,Classes_dict, Import_Dict]
+        for d in Dicts:
+            for k,v in d.items():
+                AllDict[k]=v
+        if returnDict: 
+            Result = AllDict
+        else: 
+            Result = ListNames
+        return Result
 
 class Scope(abc.ABC):
     def __init__(self):
