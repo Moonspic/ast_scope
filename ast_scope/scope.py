@@ -10,7 +10,7 @@ class Variables:
     classes = attr.ib(attr.Factory(set))
     import_statements = attr.ib(attr.Factory(set))
     @property
-    def all_symbols(self, returnDict = False):
+    def all_symbols(self):
         Result = []
         Vars = list(self.variables)
         Var_names = [var.id for var in Vars]
@@ -34,11 +34,8 @@ class Variables:
         for d in Dicts:
             for k,v in d.items():
                 AllDict[k]=v
-        if returnDict: 
-            Result = AllDict
-        else: 
-            Result = set(AllDict.values())
-        return Result
+
+        return AllDict
 
 class Scope(abc.ABC):
     def __init__(self):
