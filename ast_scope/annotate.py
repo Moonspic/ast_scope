@@ -25,9 +25,12 @@ class ScopeInfo:
             and thus does not handle reassignment of functions or classes, or
             any other variables.
         """
-        variables = self.global_scope.symbols_in_frame
+        #
+        variables = list(self.global_scope.symbols_in_frame.values())
+        nodes = list(self.global_scope.symbols_in_frame.keys())
+        
         g = DiGraph()
-        g.add_nodes_from(variables)
+        g.add_nodes_from(variables, nodes)
         varis = self.global_scope.variables
         for construct in varis.functions | varis.classes:
             for node in get_all_nodes(construct):
